@@ -1,5 +1,6 @@
 ### Info
 Common `Jenkinsfile` examples
+Replica of the [jenkins-pipeline Docker and Vagrantfile](https://github.com/apolloclark/jenkins) project.
 
 Origins:
 * [official documentation](https://jenkins.io/doc/book/pipeline/)

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.7">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.21">
+    <script>node {
+   stage &apos;Git Pull&apos;
+   checkout([
+        $class: &apos;GitSCM&apos;,
+        branches: [[name: &apos;*/master&apos;]],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [],
+        submoduleCfg: [],
+        userRemoteConfigs: [[url: &apos;https://github.com/apolloclark/discover-flask-vagrant.git&apos;]]
+    ])
+
+    stage &apos;Prepare Database&apos;
+    dir(&apos;./www&apos;) {
+        sh &apos;&apos;&apos;
+python db_create_users.py
+python db_create_posts.py
+&apos;&apos;&apos;
+    }
+
+    stage &apos;Static Analysis&apos;
+    build(&apos;Python_Pipeline&apos;)
+
+    stage &apos;Deploy Servers&apos;
+    echo &apos;Deploying Testing Insfrastructure with Terrform and Ansible&apos;
+
+    stage &apos;Dynamic Analysis&apos;
+    echo &apos;Running Selenium tests&apos;
+    echo &apos;Running JMeter stress tests&apos;
+    echo &apos;Running Gauntlt security tests&apos;
+
+    stage &apos;Security Scan&apos;
+    echo &apos;Analysing UR cyberz!!!&apos;
+
+    stage &apos;Tear-down Servers&apos;
+    echo &apos;Removing Testing Infrastructure&apos;
+
+    stage &apos;Have a Cocktail :)&apos;
+    echo &apos;Good on you! Have a cocktail. :)&apos;
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>

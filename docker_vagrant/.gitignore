@@ -1,0 +1,14 @@
+.settings/
+.project
+.pydevproject
+
+.vagrant/**
+.vagrant/
+**/.vagrant/**
+**/.vagrant/
+
+aws-config.yml
+**/aws-config.yml
+
+data/gruyere.tar
+data/painite.tar
